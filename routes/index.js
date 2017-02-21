@@ -1,4 +1,5 @@
 const util = require('../middleware/utilities');
+const config = require('../config');
 
 const index = (req, res) => {
     res.cookie('IndexCookie', 'This was set from Index.');
@@ -17,7 +18,7 @@ const loginProcess = (req, res) => {
         res.redirect('/chat');
     } else {
         req.flash('error', 'Wrong username or password.');
-        res.redirect('/login');
+        res.redirect(config.routes.login);
     }
 };
 
