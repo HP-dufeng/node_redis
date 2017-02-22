@@ -13,6 +13,7 @@ const errorHandlers = require('./middleware/errorhandlers');
 const log = require('./middleware/log');
 const util = require('./middleware/utilities');
 const config = require('./config');
+const io = require('./socket.io');
 
 const app = express();
 
@@ -26,7 +27,7 @@ app.use(session({
     secret: config.secret,
     saveUninitialized: true,
     resave: true,
-    store: new RedisStore({url: config.redisUrl})
+    store: new RedisStore({host: config.redisHost, port: config.redisPort})
 }));
 app.use(flash());
 app.use(bodyParser.json());
@@ -49,6 +50,8 @@ app.get('/error', (req, res, next) => {
 app.use(errorHandlers.error);
 app.use(errorHandlers.notFound);
 
-app.listen(config.port, () => {
+const server = app.listen(config.port, () => {
     console.log('App server running on port 3000');
 });
+
+io.startIo(server);
