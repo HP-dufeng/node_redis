@@ -12,10 +12,11 @@ module.exports.csrf = (req, res, next) => {
 };
 
 module.exports.authenticated = (req, res, next) => {
+    req.session.isAuthenticated = req.session.passport.user !== undefined;
     res.locals.isAuthenticated = req.session.isAuthenticated;
     if(req.session.isAuthenticated)
-        res.locals.user = req.session.user;
-    
+        res.locals.user = req.session.passport.user;
+
     next();
 };
 
@@ -27,17 +28,9 @@ module.exports.requireAuthentication = (req, res, next) => {
     }
 };
 
-module.exports.auth = (username, password, session) => {
-    const isAuth = username === 'test';
-    if(isAuth){
-        session.isAuthenticated = isAuth;
-        session.user = { username };
-    }
 
-    return isAuth;
-};
 
-module.exports.logOut = session => {
-    session.isAuthenticated = false;
-    delete session.user;
+module.exports.logOut = req => {
+    req.session.isAuthenticated = false;
+    req.logout();
 };
