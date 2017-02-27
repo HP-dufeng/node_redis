@@ -7,6 +7,10 @@ const redisAdapter = require('socket.io-redis');
 const config = require('../config');
 
 const redisSession = new ConnectRedis({host: config.redisHost, port: config.redisPort});
+const redisChat = require('../redis/chat');
+const models = require('../redis/models');
+const log = require('../middleware/log');
+
 
 const socketAuth = (socket, next) => {
     const handshakeData = socket.request;
