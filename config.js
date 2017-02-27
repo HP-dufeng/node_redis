@@ -26,6 +26,10 @@ const config = {
         workFactor: 50000,
         keylen: 32,
         randomSize: 256
+    },
+    rabbitMQ: {
+        URL: 'amqp://guest:guest@localhost:5672',
+        exchange: 'mychat.log'
     }
 };
 

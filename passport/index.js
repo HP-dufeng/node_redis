@@ -5,6 +5,7 @@ const local = require('passport-local').Strategy;
 const config = require('../config');
 const user = require('./user');
 const passwordUtils = require('./password');
+const log = require('../middleware/log');
 
 passport.use(
     new facebook(
@@ -44,10 +45,12 @@ passport.use(new local(function(username, password, done){
                     }
                     done(null, profile);
                 } else {
+                    log.debug({message: 'Wrong Username or Password', username: username});
                     done(null, false, {message: 'Wrong Username or Password'});
                 }
             });
         } else {
+            log.debug({message: 'Wrong Username or Password', username: username});
             done(null, false, {message: 'Wrong Username or Password'});
         }
     });

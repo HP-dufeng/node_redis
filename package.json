@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "amqp": "^0.2.6",
     "body-parser": "^1.16.1",
     "connect": "^3.6.0",
     "connect-flash": "^0.1.1",
@@ -24,6 +25,7 @@
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
+    "q": "^1.4.1",
     "redis": "^2.6.5",
     "safe-buffer": "^5.0.1",
     "scmp": "^2.0.0",
